@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -36,13 +38,11 @@ def delete_event(request, event_id):
 @csrf_exempt
 def update_event(request, event_id):
     if request.method == 'PUT':
-        event = get_object_or_404(CalendarEvent, pk=event_id)
+        event = CalendarEvent.objects.filter(id=event_id)
 
-        data = json.loads(request.body)
-        event.title = data.get('title', event.title)
-        event.date = data.get('date', event.date)
-        event.save()
-
+        title = json.loads(request.body.title()).get('Title', 'Hello')
+        date = json.loads(request.body.title()).get('Date', 'Hello')
+        event.update(title=title, date=date)
         return JsonResponse({'message': 'Event updated successfully'})
 
     return JsonResponse({'message': 'Invalid request method'})
