@@ -16,6 +16,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 APPEND_SLASH = False
 
+DATE_INPUT_FORMATS = ("%d/%m/%Y",)
+DATETIME_INPUT_FORMATS = ("%d/%m/%Y %H:%M",)
+
 
 # Application definition
 
